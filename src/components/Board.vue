@@ -1,6 +1,6 @@
 <template>
   <div class="board" :tabindex="index">
-    <h1>[{{board.index+1}}] {{board.slug}}</h1>
+    <h1>[{{board.index}}] {{board.slug}}</h1>
     <TaskList
       :key="board.slug+'task_list'"
       :tasks="board.tasks"

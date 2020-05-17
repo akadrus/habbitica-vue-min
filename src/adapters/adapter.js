@@ -8,7 +8,7 @@ class HabbiticaAdapter {
     this.user_data = user_data;
 
     this.adapter = axios.create({
-      timeout: 1000,
+      timeout: 10000,
       headers: {
         'x-client': this.x_client,
         'x-api-user': user_data.user,
@@ -24,16 +24,31 @@ class HabbiticaAdapter {
   getTags(){
     return this.getRequest('tags');
   }
+  
 
   getRequest(endpoint_url){
     return this.adapter.get(this.endpoint + endpoint_url, {
-      timeout: 3000
+      timeout: 10000
     });
   }
 
   scoreATask(taskUid){
     return this.adapter.post(`${this.endpoint}tasks/${taskUid}/score/up`, {
-      timeout: 3000
+      timeout: 10000
+    });
+  }
+
+  deleteTask(taskUid){
+    return this.adapter.delete(`${this.endpoint}tasks/${taskUid}`, {
+      timeout: 10000
+    });
+  }
+
+  createNewTask(text, tags){
+    return this.adapter.post(`${this.endpoint}tasks/user`, {
+        text: text,
+        type: "todo",
+        tags: tags
     });
   }
 }

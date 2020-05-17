@@ -15,6 +15,7 @@ import Board from '@/components/Board.vue'
 import CommandBar from '@/components/CommandBar.vue'
 
 import { HabbiticaAdapter } from '@/adapters/adapter.js'
+import { CommandParserService } from '@/services/commandParserService.js'
 import { taskToTagsMapperService } from '@/services/taskToTagsMapperService.js'
 
 const adapter = new HabbiticaAdapter(
@@ -23,6 +24,8 @@ const adapter = new HabbiticaAdapter(
     key: process.env.VUE_APP_API_KEY
   },
 )
+
+
 
 let displayBoards = []
 
@@ -45,15 +48,10 @@ export default {
 
   methods: {
     passAnswer: function(command){
-      // split by : 
-      // if [0] not a, v or d - show error
-      // if [1] not board - show error
-      // if [0] !== a and [2] not task in list - show error
-      // if [0] == a and [2] != 'jakistekst' - show error
 
-      let taskUid = this.displayBoards['*']['tasks'][command-1]['id'];
-      adapter.scoreATask(taskUid);
-      this.fetch_data();
+    let commandParser = new CommandParserService(command, adapter, this.displayBoards); 
+    commandParser.handleCommand();
+    this.fetch_data();
     },
 
 
@@ -78,6 +76,7 @@ export default {
         for (const propertyname in boards) {
           displayBoards.push(boards[propertyname])
         }
+        console.log(boards);
         that.displayBoards = boards
         that.boards_are_ready = true
       })

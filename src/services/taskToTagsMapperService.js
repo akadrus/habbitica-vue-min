@@ -7,6 +7,7 @@ class taskToTagsMapperService {
   make_boards() {
     let tagsCombinations = {}
     let tasks = this.tasks
+    let boardsIndex = 1;
     for (let i = 0; i < tasks.length; i++) {
       let task = tasks[i]
       let tagString = this.make_string_from_tags(task.tags) || "*";
@@ -14,11 +15,13 @@ class taskToTagsMapperService {
         if (!(tagString in tagsCombinations)) {
           tagsCombinations[tagString] = {
               'tasks': [],
-              'index': i, 
+              'tags': task.tags,
+              'index': boardsIndex, 
               'visible': true,
               'slug': tagString,
               'name': tagString,
           }
+          boardsIndex++;
         }
         tagsCombinations[tagString].tasks.push(task)
     }
