@@ -1,3 +1,5 @@
+'use strict'
+
 class CommandParserService {
     constructor(command, adapter, boards) {
       

@@ -9,6 +9,7 @@
 </template>
 
 <script>
+'use strict'
 
 export default {
   name: "TaskList",
@@ -19,10 +20,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-a {
-  color: #42b983;
-}
-
 ol > li {
   text-align: left;
 }

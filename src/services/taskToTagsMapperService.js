@@ -1,3 +1,5 @@
+'use strict'
+
 class taskToTagsMapperService {
   constructor(tasks, tags) {
     this.tasks = tasks

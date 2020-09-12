@@ -62,6 +62,7 @@ export default {
       ) {
         let tasks = []
         let tags = []
+        // #FIXME @FIXME maybe we can get it from API?
         values.forEach(value => {
           if (value.config.url.includes('tasks')) {
             tasks = value.data.data
@@ -70,13 +71,14 @@ export default {
             tags = value.data.data
           }
         })
+
         let tttms = new taskToTagsMapperService(tasks, tags)
         let boards = tttms.make_boards()
 
         for (const propertyname in boards) {
           displayBoards.push(boards[propertyname])
         }
-        console.log(boards);
+
         that.displayBoards = boards
         that.boards_are_ready = true
       })
@@ -84,6 +86,7 @@ export default {
 
     refresh_data: function() {
       this.fetch_data();
+      //  @FIXME kinda risky
       setInterval(() => {
         this.fetch_data();
       }, 10000)
