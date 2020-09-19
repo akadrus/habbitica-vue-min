@@ -13,6 +13,7 @@ class CommandParserService {
     command = command.split(":");
     let commandLetter = command[0];
     let boardIndex = command[1];
+    
 
     if (!this.allowLetters.includes(commandLetter)) {
       alert("Wrong command! a, v or d!");
@@ -25,7 +26,7 @@ class CommandParserService {
     }
 
     let chosenBoard = Object.values(this.boards)[boardIndex - 1];
-    if (typeof chosenBoard === "undefined") {
+    if (typeof chosenBoard == "undefined") {
       alert("No such board!");
       return;
     }
@@ -35,8 +36,9 @@ class CommandParserService {
       this.adapter.createNewTask(taskTitle, chosenBoard.tags);
       return;
     }
-
-    let taskUid = chosenBoard["tasks"][command[1] - 1]["id"];
+    
+    let taskIndex = command[2] - 1;
+    let taskUid = chosenBoard.tasks[taskIndex].id;
     if (typeof taskUid === "undefined") {
       alert("No such task!");
       return;
