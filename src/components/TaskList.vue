@@ -1,7 +1,7 @@
 <template>
   <div>
     <ol>
-      <li v-for="item in tasks" :key="item.id"> 
+      <li v-for="item in tasks" :key="item.id">
         {{ item.text }}
       </li>
     </ol>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-'use strict'
+"use strict";
 
 export default {
   name: "TaskList",
