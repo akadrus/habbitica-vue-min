@@ -2,8 +2,7 @@
   <div class="flex-container" v-if="boards_are_ready">
       <Board 
         v-for="board in displayBoards"
-        :index="board.index"
-        :key="board.slug"
+        :key="board.name"
         :board="board"
       ></Board>
       <CommandBar v-on:command_input_submit="passAnswer" />
@@ -20,12 +19,10 @@ import { taskToTagsMapperService } from '@/services/taskToTagsMapperService.js'
 
 const adapter = new HabbiticaAdapter(
   {
-    user: '2bd43415-87da-4b86-bc27-855835e80215',
+    user: process.env.VUE_APP_USER_UID,
     key: process.env.VUE_APP_API_KEY
   },
 )
-
-
 
 let displayBoards = []
 
@@ -59,10 +56,10 @@ export default {
       let that = this
       Promise.all([adapter.getTasks(), adapter.getTags()]).then(function(
         values,
-      ) {
+      ){
         let tasks = []
         let tags = []
-        // #FIXME @FIXME maybe we can get it from API?
+
         values.forEach(value => {
           if (value.config.url.includes('tasks')) {
             tasks = value.data.data
@@ -86,10 +83,9 @@ export default {
 
     refresh_data: function() {
       this.fetch_data();
-      //  @FIXME kinda risky
       setInterval(() => {
         this.fetch_data();
-      }, 10000)
+      }, 50000)
     },
 
     doCommand: function(e) { 
@@ -108,9 +104,18 @@ destroyed() {
 
 <style scoped lang="scss">
 .flex-container{
-  display: flex;
+ display: flex;
+ justify-content: space-between;
+ flex-wrap: wrap;
 }
 .flex-container .board{
-  flex-grow: 1;
+  flex-basis: 22%;
+  margin-bottom: 10px;
+  margin-right: 2%;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: black;
+  box-sizing: border-box; 
 }
 </style>

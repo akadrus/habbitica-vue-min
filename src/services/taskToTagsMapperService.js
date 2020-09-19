@@ -1,4 +1,5 @@
 'use strict'
+import { Board } from '@/models/board.js' 
 
 class taskToTagsMapperService {
   constructor(tasks, tags) {
@@ -7,35 +8,26 @@ class taskToTagsMapperService {
   }
 
   make_boards() {
-    let tagsCombinations = {}
+    let boards = {}
     let tasks = this.tasks
     let boardsIndex = 1;
     for (let i = 0; i < tasks.length; i++) {
       let task = tasks[i]
       let tagString = this.make_string_from_tags(task.tags) || "*";
 
-        if (!(tagString in tagsCombinations)) {
-          tagsCombinations[tagString] = {
-              'tasks': [],
-              'tags': task.tags,
-              'index': boardsIndex, 
-              'visible': true,
-              'slug': tagString,
-              'name': tagString,
-          }
+        if (!(tagString in boards)) {
+          boards[tagString] = new Board(
+            task.tags, tagString, boardsIndex
+          )
           boardsIndex++;
         }
-        tagsCombinations[tagString].tasks.push(task)
+        boards[tagString].addTask(task)
     }
 
-    return tagsCombinations;
+    return boards;
   }
 
   make_string_from_tags(tags) {
-    if(tags.length == 0){
-      return false;
-    }
-
     let tagsNames = []
     for (let i = 0; i < tags.length; i++) {
       tagsNames.push(this.get_tag_name_by_uid(tags[i]));

@@ -24,7 +24,6 @@ class HabbiticaAdapter {
   getTags(){
     return this.getRequest('tags');
   }
-  
 
   getRequest(endpoint_url){
     return this.adapter.get(this.endpoint + endpoint_url, {

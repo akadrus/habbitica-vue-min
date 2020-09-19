@@ -4,7 +4,7 @@ import Board from "@/components/Board.vue";
 describe("Board.vue", () => {
   it("renders board slug", () => {
     let testBoard = { 
-      slug: 'testBoardName'
+      name: 'testBoardName'
      };
     const wrapper = shallowMount(Board, {
        propsData: {
@@ -12,6 +12,6 @@ describe("Board.vue", () => {
 
     }
     );
-    expect(wrapper.text()).toMatch(testBoard.slug);
+    expect(wrapper.text()).toMatch(testBoard.name);
   });
 });

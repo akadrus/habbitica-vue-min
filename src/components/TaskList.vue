@@ -23,12 +23,4 @@ export default {
 ol > li {
   text-align: left;
 }
-
-.approve_button{
-  color: greenyellow;
-}
-
-.delete_button{
-  color: red;
-}
 </style>

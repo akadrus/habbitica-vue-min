@@ -1,8 +1,8 @@
 <template>
-  <div class="board" :tabindex="index">
-    <h1>[{{board.index}}] {{board.slug}}</h1>
+  <div class="board" :tabindex="board.index">
+    <h1>[{{board.index}}] {{board.name}}</h1>
     <TaskList
-      :key="board.slug+'task_list'"
+      :key="board.name+'task_list'"
       :tasks="board.tasks"
     ></TaskList>
   </div>
@@ -19,7 +19,6 @@ export default {
   },
   props: {
     board: Object,
-    index: Number
   },
 }
 </script>
